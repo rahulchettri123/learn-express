@@ -51,6 +51,17 @@ app.post('/write/adduser', (req, res) => {
   res.send('done');
 })
 
+// Add a route to search for a user by username
+app.get('/search/user', (req, res) => {
+    const { username } = req.query;
+    const user = users.find(user => user.username === username);
+    if (user) {
+        res.json(user);
+    } else {
+        res.status(404).json({ error: 'User not found' });
+    }
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
